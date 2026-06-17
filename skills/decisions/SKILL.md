@@ -35,11 +35,29 @@ no API key, no network). Everything else you **borrow**:
 
 ## The one rule above all others
 
-**One decision per ask.** Not three bundled, not a register of twelve. If you have
-several questions, they are several asks, posted one at a time, and you wait for
-each answer before the next. A wall of questions is efficient for *you* to write
-and inconsiderate for *them* to receive. (The failure this skill exists to kill is
-real and common: the author dumps everything they're unsure about into one post.)
+**One decision per ask** — and pace the asks to the person's cognitive load and
+availability. The thing you're protecting is the human's attention, and it fails in
+*two* directions:
+
+- **Bundling** — three decisions in one post. Now answering means composing a
+  paragraph that disentangles which answer maps to which question. The load lands on
+  them.
+- **Flooding** — ten separate posts in a burst. Now they have to scroll back up the
+  thread to reconstruct what's still open and what they've already answered. The load
+  *still* lands on them, just relocated.
+
+The goal sits between: **draw the decisions out calmly, one at a time, paced so each
+lands when there's room for it.** The target experience for the human is — glance at
+the options, see *within seconds* what's being decided, judge whether the proposed
+default looks right, 👍 (or say otherwise), and move on to their own next thing. No
+composing, no scrolling, no homework. If answering your ask requires any of those,
+you've offloaded your load onto them, which is the failure this skill exists to kill.
+
+So: several questions are several asks, generally posted one at a time, the next
+following the previous answer — not fired as a barrage. Dependent decisions *must*
+sequence (you need the first answer to frame the second). Independent ones can follow
+in calm succession, but never bundled into one message and never dumped all at once.
+Read the room: someone heads-down or mid-meeting gets the ask spaced out, not stacked.
 
 ## 1 — SCOPE: is this even a question for a human?
 
@@ -66,6 +84,24 @@ Every ask answers these, in this order, and nothing else:
 Bring the relevant thing *into* the ask: a screenshot of the issue, the line of
 code, the current state, the before-picture. The person should be able to decide
 without opening another tab.
+
+**Redact what you carry in (a hard gate, not a nicety).** A real screenshot pulled
+into an ask is a *publish surface* — it lands in a chat channel and may be seen,
+forwarded, or logged. Before posting any real capture (still / annotated / GIF /
+video):
+
+- **Strip sensitive data** — PHI/PII, patient names, client names, account numbers,
+  secrets/tokens (including any in a visible URL). Crop or box them out. When in doubt,
+  use seeded/dummy data for the capture instead of a real record.
+- **Crop for confidentiality, not just attention** — the same tight crop that keeps
+  the aid glanceable also keeps the off-topic sensitive stuff out of frame. Two birds.
+- **Check the channel's audience** — is this a DM, an internal room, or a
+  client-shared space? An aid that's fine in a private dev thread can be a leak in a
+  channel the client reads. Match the data's sensitivity to who can see the post.
+
+This is the same discipline as the fleet's strip-EXIF and no-client-names rules,
+applied at the moment of the ask. A perfectly-framed decision that leaks a patient's
+record is a net loss.
 
 `templates/decision.md` is the fill-in-the-blanks version. Filling all five fields
 *is* the quality check — if you can't name the recommendation, you don't understand
@@ -140,9 +176,16 @@ So the **structure carries the argument** and words are labels, not sentences:
   never in the aid.
 - **The delete test:** strike every word that isn't load-bearing. If the decision
   still reads from the structure alone, those words were tax.
-- **The tell:** if the matrix needs a legend or a sentence to be understood, the
-  *columns* are wrong — fix the structure, don't annotate it. (Two cells that
-  contradict — "in the menu ✓ / can open ✕" — say "broken" with no prose at all.)
+- **The tell:** if a *matrix* needs a sentence to be understood, the *columns* are
+  wrong — fix the structure, don't annotate it. (Two cells that contradict — "in the
+  menu ✓ / can open ✕" — say "broken" with no prose at all.)
+- **The exception — naming labels, not explaining prose.** Some aids legitimately
+  carry a short label that *names a part*: the annotated screenshot's pin legend (1 →
+  "the date field") and the tree's ordering hint ("first match wins") are labels, not
+  explanations. They're allowed. What's banned is the *explanatory sentence* and the
+  *reassurance paragraph* — the line that argues, justifies, or soothes. Label the
+  parts; never explain the decision inside the card. (So the "delete test" trims
+  sentences, not the legend that makes `annotated` legible.)
 
 The best aid is the one where the structure does so much work that almost no words
 are left. If you can't get there, that's the signal the decision is better as plain
@@ -154,8 +197,10 @@ A generated flowchart or matrix that's subtly wrong is **worse than none** — i
 anchors the person on a false model of the choice. So split the visual job by tool:
 
 - **Structure** (matrices, flows, decision trees, tables): render from the *real*
-  facts with **HTML / mermaid / graphviz**, then screenshot. Accurate by
-  construction, no hallucination, no key, fast. This is the default and it carries
+  facts with **HTML / mermaid / graphviz**, then screenshot. No hallucination *at
+  render* — the screenshot is exactly the HTML you wrote, so no model invents a cell.
+  (That's the guarantee; it does **not** make the content true — you still have to put
+  *correct* facts in. Deterministic ≠ accurate.) No key, fast. This is the default and it carries
   most asks. (`templates/matrix.html` + `render.mjs`.)
 - **Pictorial** (wireframes, "what the screen feels like", illustrations): an image
   model (`gpt-image-2`, `gemini-3.1-flash-image`) is the right tool — but it
@@ -205,7 +250,8 @@ work is tracked.
 
 | Gate | Why |
 |---|---|
-| One decision per ask | a bundle is the failure mode this skill exists to kill |
+| One decision per ask, paced to their load | bundling *and* flooding both dump the load back on the human |
+| Real captures redacted + channel-checked before posting | an aid is a publish surface; a leaked patient/client record outweighs a perfect frame |
 | All five frame fields filled, including a recommendation | no recommendation means you don't understand the choice well enough to ask |
 | Context carried into the ask | "go look up #X" offloads your work onto the busy person |
 | Answerable in one tap | a 👍 beats a composed paragraph; if it needs a paragraph, the frame isn't done |
