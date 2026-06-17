@@ -18,9 +18,13 @@ SCOPE → FRAME → AID → POST → WATCH → ACT
         the ask  the visual  one-tap-back
 ```
 
-You **own** two things: the **decision frame** (`templates/decision.md`, the
-contract for a single ask) and the **grounded-aid renderer** (`templates/matrix.html`
-+ `templates/render.mjs`, HTML → screenshot). Everything else you **borrow**:
+You **own** two things: the **decision frame** (`decision.md`, the contract for a
+single ask) and the **grounded-aid renderer** (`matrix.html` + `render.mjs`,
+HTML → screenshot). Both live in this plugin's `templates/` dir — reference them as
+`${CLAUDE_PLUGIN_ROOT}/templates/<file>` (they sit a level *above* `skills/`, not
+inside it, so a bare `templates/…` path won't resolve from here). `render.mjs` needs
+Playwright (`npm i playwright` once, or point `CHROME_PATH` at an existing Chrome —
+no API key, no network). Everything else you **borrow**:
 
 | Need | Borrow |
 |---|---|
@@ -80,6 +84,32 @@ works:
 | A comparison across options × dimensions | a **decision matrix** (grounded HTML → screenshot, see below) |
 | A flow / sequence / branch | a **mermaid or graphviz** diagram generated from the *real* code |
 | Genuinely complex, multi-branch, needs walking through | a **narrated screen-recording** (borrow fixer/walkabout) — the rare exception |
+
+### Keep the aid glanceable — prose inside it is the failure
+
+A visual exists to be **glanced at in seconds, not read**. The moment the decider has
+to read sentences inside it, it's text wearing a table's clothes — and it costs *more*
+attention than plain text would, because they came to it expecting a glance. The
+coworker's attention is the scarce resource (the whole premise); a crammed visual
+spends it twice and breeds the decision-fatigue that makes people defer the ask.
+
+So the **structure carries the argument** and words are labels, not sentences:
+
+- **No full sentences inside the card.** Title ≤ ~6 words; cell values are symbols or
+  short labels; option chips ≤ ~6 words.
+- **No explanatory paragraph, no reassurance text.** "Grounded / nothing invented /
+  read from the live config" reassures *you*, the author — it serves your anxiety,
+  not their decision. If it must be said at all, it goes in the one chat message,
+  never in the aid.
+- **The delete test:** strike every word that isn't load-bearing. If the decision
+  still reads from the structure alone, those words were tax.
+- **The tell:** if the matrix needs a legend or a sentence to be understood, the
+  *columns* are wrong — fix the structure, don't annotate it. (Two cells that
+  contradict — "in the menu ✓ / can open ✕" — say "broken" with no prose at all.)
+
+The best aid is the one where the structure does so much work that almost no words
+are left. If you can't get there, that's the signal the decision is better as plain
+text — the lightest medium — than as a visual at all.
 
 ### Ground the visuals, or they mislead
 

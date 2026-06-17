@@ -4,13 +4,23 @@
 //
 //   node templates/render.mjs <input.html> [output.png] [--width 960]
 //
-// Default output: <input>.png next to the html. Default viewport width 960
-// (the matrix.html card is 880 + 40px padding each side). Height auto-fits.
+// Default output: <input>.png next to the html. Default viewport width 960; the
+// .card is tight-cropped regardless, so width only affects wrapping. Height auto-fits.
 //
 // Requires playwright (npm i playwright + npx playwright install chromium), OR
-// point PW at an existing Chrome via CHROME_PATH. No API key, no network.
+// point CHROME_PATH at an existing Chrome. No API key, no network.
 
-import { chromium } from 'playwright';
+let chromium;
+try {
+  ({ chromium } = await import('playwright'));
+} catch {
+  console.error(
+    'render.mjs needs Playwright. Install it once with `npm i playwright`\n' +
+    '(then `npx playwright install chromium`), or point CHROME_PATH at an\n' +
+    'existing Chrome/Chromium binary. No API key or network needed.'
+  );
+  process.exit(1);
+}
 import { resolve, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { existsSync } from 'node:fs';
