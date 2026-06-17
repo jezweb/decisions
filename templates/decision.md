@@ -7,20 +7,20 @@ gate; the ask you post is derived from it.
 ---
 
 **Decision** (one, specific):
-> e.g. "Should nurses and case managers see all patients, or only the ones on cases they're assigned to?"
+> e.g. "Should the 'editor' and 'reviewer' roles see every project, or only the ones they're assigned to?"
 
 **Owner** (the person who can actually answer — name them):
-> e.g. Marianne (with Jeff for the clinical-policy half)
+> e.g. the QA lead (with the client's policy owner for the policy half — a two-owner decision)
 
 **Why it needs them** (what only they hold — preference / policy / priority / fact):
-> e.g. "It's a clinical-workflow + privacy call, not a code question."
+> e.g. "It's an access-policy + privacy call, not a code question."
 
 **Choices** (concrete, mutually exclusive, named):
 > 1. ...
 > 2. ...
 
 **Recommendation + why** (so they can confirm, not compose):
-> e.g. "1 — simplest, and right if they cover front desk for everyone. What most clinics start with."
+> e.g. "1 — simplest, and right if they cover the whole workspace for everyone. What most teams start with."
 
 **What it unblocks** (the stakes — why their ten seconds matters):
 > e.g. "Unblocks the entire role-enforcement build."

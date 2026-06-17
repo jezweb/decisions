@@ -14,7 +14,7 @@ context carried, visual where it helps, answerable in one tap.
 The shape, per decision:
 
 ```
-SCOPE → FRAME → AID → POST → WATCH → ACT
+SCOPE → FRAME → AID → POST → WATCH → CONFIRM → ACT
         the ask  the visual  one-tap-back
 ```
 
@@ -71,14 +71,23 @@ the decision** (the person who can actually answer), not just "the team".
 
 Every ask answers these, in this order, and nothing else:
 
-1. **The decision** — one, specific. ("Should nurses see all patients or only their
-   assigned cases?" not "how should roles work?")
+1. **The decision** — one, specific. ("Should the 'editor' role see every project, or
+   only the ones they're assigned to?" not "how should roles work?")
 2. **Why it needs *you*** — what only they can answer. Keeps it from feeling like
    homework you should have done.
 3. **The choices** — concrete, mutually exclusive, named (A/B/1/2).
 4. **The recommendation + why** — so the person can *confirm* instead of *compose*.
    A recommended default turns a paragraph-reply into a 👍.
 5. **What it unblocks** — the stakes, so they know why their ten seconds matters.
+
+**Also judge: is it reversible?** Not a sixth part of the ask — a posture-setter for
+*how hard you confirm later*. A reversible, low-stakes call leans to a lighter ask
+(or just do it and mention it). An irreversible / regulated / affects-others /
+multi-owner call earns the heavier CONFIRM (§6): a worded reply, a durable record,
+and — for multi-owner — every owner, not the first tap. (Examples here are
+domain-neutral on purpose: the method is the same whether the decision is about a
+SaaS role, a deploy, a layout, or a comms schedule — don't let one domain's flavour
+leak into a general skill.)
 
 **Carry the context to them.** Never make them go look up "#618" or "that GH issue."
 Bring the relevant thing *into* the ask: a screenshot of the issue, the line of
@@ -90,7 +99,7 @@ into an ask is a *publish surface* — it lands in a chat channel and may be see
 forwarded, or logged. Before posting any real capture (still / annotated / GIF /
 video):
 
-- **Strip sensitive data** — PHI/PII, patient names, client names, account numbers,
+- **Strip sensitive data** — PII (personal data, health records), personal names, client names, account numbers,
   secrets/tokens (including any in a visible URL). Crop or box them out. When in doubt,
   use seeded/dummy data for the capture instead of a real record.
 - **Crop for confidentiality, not just attention** — the same tight crop that keeps
@@ -100,7 +109,7 @@ video):
   channel the client reads. Match the data's sensitivity to who can see the post.
 
 This is the same discipline as the fleet's strip-EXIF and no-client-names rules,
-applied at the moment of the ask. A perfectly-framed decision that leaks a patient's
+applied at the moment of the ask. A perfectly-framed decision that leaks someone's
 record is a net loss.
 
 `templates/decision.md` is the fill-in-the-blanks version. Filling all five fields
@@ -222,10 +231,14 @@ they want**, or replies with its number. No composing required.
 
 ```
 [context msg + visual]  "One decision to unblock X. <frame>. Two options below —
-                         just 👍 or reply the number of the one you want."
+                         just 👍 or reply the number. Or tell me if I've framed it wrong."
 [choice msg 1]          "1️⃣ <option A> (recommended). <one line why>. 👍 or reply 1."
 [choice msg 2]          "2️⃣ <option B>. <one line why>. 👍 or reply 2."
 ```
+
+The footer "**or tell me if I've framed it wrong**" is the escape hatch — it costs a
+clause and saves the worst case (a clean answer to the wrong question). Honour it in
+CONFIRM (§6).
 
 Always carry a **text fallback**: if the channel can't surface reactions, the
 person replies "1". Never make answering require watching a video or parsing an
@@ -233,15 +246,44 @@ image.
 
 ## 5 — WATCH: poll for the tap
 
-Watch the thread for a 👍 on a choice message or a one-word reply. If the channel
-MCP can read reactions, the 👍 is the signal; if not, the reply is. When it lands,
-**confirm you've got it** ("got it, building option 1") so the person knows their
-ten seconds counted, and proceed.
+Watch the thread for a 👍 on a choice message or a one-word reply. **Treat the
+worded reply as the primary signal and the 👍 as the nice-to-have** — many chat
+APIs read reactions unreliably (some never surface them at all), so don't hang the
+whole loop on seeing a 👍 you might miss. A reply naming the option is unambiguous
+and always readable.
 
 If it goes quiet past a sensible window, a single gentle nudge on the same thread —
-never a re-post of the whole question.
+never a re-post of the whole question. If the nudge also goes silent: for a
+reversible call you may proceed on the recommended default *and say so* ("going with
+1 unless you say otherwise"); for an irreversible / regulated one, escalate to the
+owner directly or hold — never silently assume the default.
 
-## 6 — ACT
+## 6 — CONFIRM: read it back before you act
+
+The ask was a produced artifact; the *answer* deserves the same care. Don't treat a
+tap as a clean, final, correct instruction — close the loop:
+
+- **Read back the consequence, not just receipt.** Not "got it, option 1" but one
+  line restating what that choice *means and does next*: "Got it — editors see every
+  project; I'll wire role-enforcement to that, live next deploy." This catches a
+  mis-tapped reaction or a misread before any work starts. One line — don't re-open
+  the decision.
+- **Leave an escape open, and honour it.** Every ask carries an implicit "none of
+  these / not quite / I've mis-framed it" path (a footer line: "…or tell me if I've
+  framed it wrong"). A "yes, but…" or "actually…" reply is a **reframe signal, not
+  noise** — pause, don't proceed on the recommendation, fold in what they said and
+  re-ask. This is the recovery SCOPE can't give once the ask is already out.
+- **Match the confirmation to the stakes** (set in FRAME):
+  - *Reversible / low-stakes* → the tap is enough; the read-back is a courtesy. Proceed.
+  - *Irreversible, regulated, money, affects others, multi-owner* → require an
+    explicit **worded** reply (not a bare reaction), and write a one-line **durable
+    record** where the work is tracked — who decided / what / when / on what evidence.
+    A reaction that scrolls out of the thread is not an audit trail.
+- **Multi-owner → don't treat one tap as consensus.** If the decision needs two
+  people (FRAME named them), get *both*; if they conflict, surface the conflict and
+  let them resolve it — never pick for them.
+
+## 7 — ACT
 
 Do the thing. Then, if the decision changed course, close the loop wherever the
 work is tracked.
@@ -251,13 +293,16 @@ work is tracked.
 | Gate | Why |
 |---|---|
 | One decision per ask, paced to their load | bundling *and* flooding both dump the load back on the human |
-| Real captures redacted + channel-checked before posting | an aid is a publish surface; a leaked patient/client record outweighs a perfect frame |
+| Real captures redacted + channel-checked before posting | an aid is a publish surface; a leaked personal or client record outweighs a perfect frame |
 | All five frame fields filled, including a recommendation | no recommendation means you don't understand the choice well enough to ask |
 | Context carried into the ask | "go look up #X" offloads your work onto the busy person |
 | Answerable in one tap | a 👍 beats a composed paragraph; if it needs a paragraph, the frame isn't done |
 | Structural visuals grounded, not generated | a wrong diagram anchors a wrong decision |
 | Generated images use a designated key, never a client's | credential-context is non-negotiable |
 | Medium matched to complexity | a video for a yes/no wastes more attention than text would |
+| The answer is read back before you act on it | a tap is not a verified instruction — a mis-tap or misread caught after the work is the expensive one |
+| An escape hatch on every ask, honoured | a clean answer to the wrong question is the costliest outcome the frame can't prevent |
+| Irreversible / regulated / multi-owner → worded reply + durable record, every owner | a 👍 that scrolls away can't answer "who approved this, and when?"; one tap isn't consensus |
 
 The earned-place test: if a clarifying question went out as a wall of asks, or made
 the person go look something up, or forced a paragraph when a 👍 would do, decisions
