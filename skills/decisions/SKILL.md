@@ -82,12 +82,45 @@ works:
 | A yes/no or pick-one, self-evident | **text + the five-part frame**. Stop here. Most asks. |
 | Spatial / "what would it look like" | one **screenshot** of the real surface, or a **wireframe** image |
 | About a **specific spot** on a real screen ("what should THIS do?", "is THIS the right place?") | an **annotated screenshot** — the real screen with numbered pins on the spot(s) + a legend (`annotated.html`). Carries the actual pixels into the ask; grounded by construction. Keep to 1-3 pins or it's several decisions. |
+| A change only visible **in motion** — a transition, an interaction, a before↔after | a short **silent GIF** (autoplay-loops in chat); a **narrated video** only if it's long / multi-screen / the *why* needs a voice. See *Real captures* below. |
 | A comparison across options × dimensions | a **decision matrix** (grounded HTML → screenshot, see below) |
 | Two genuine approaches, decided by 2-3 trade-offs | a **compare** card — A vs B, trade-offs as the rows (`compare.html`) |
 | Approving a **set** of changes (a batch / deploy go-no-go) | a **manifest** — one row per item, short risk tag, one go/no-go (`manifest.html`) |
 | A precedence / classification branch ("what order do the rules fire?") | a **tree** — first-match-wins ladder, contested rule highlighted (`tree.html`; pure HTML/CSS, no network — for a large graph use graphviz `dot -Tpng` instead) |
 | A flow / sequence you must *walk through* | a **mermaid or graphviz** diagram generated from the *real* code |
 | Genuinely complex, multi-branch, needs walking through | a **narrated screen-recording** (borrow fixer/walkabout) — the rare exception |
+
+### Real captures: crop tight, then pick still / GIF / video by what the decision hinges on
+
+The real-app aids — a screenshot, an annotated screenshot, a GIF, a video — are all
+**grounded by construction**: real pixels, nothing invented. They're one family,
+distinct from the structural aids (matrix/tree = HTML render) and the pictorial ones
+(wireframe = image model, which *invents*). Within the real-capture family, **fidelity
+is its own axis** — and the rule is the same as everywhere else: the lightest thing
+that shows the property you're deciding on.
+
+| The decision turns on… | Capture | Why |
+|---|---|---|
+| a **static** property — where a thing is, what a label says, a layout, which of two states | a **cropped still** (pin it if needed) | one frame holds the whole answer; absorbed at a glance |
+| something only visible **in motion / over a sequence** — a transition, a janky interaction, "what happens when you click" | a short **silent GIF** | a still literally can't show it; autoplay-loops in chat, no controls to fight |
+| a **before↔after** where the delta is subtle or spatial | an **A/B toggle GIF** (loops before→after→before) | the toggle makes the change *pop*; two side-by-side stills make the eye hunt for the difference |
+| a property that needs **narration while you watch**, or is **long / multi-screen** | a **narrated video** (borrow fixer/walkabout) | the rare, heaviest case; a click-to-play friction cost, so earn it |
+
+Two rules that do most of the work:
+
+- **Crop to the decision.** The default still is a *partial* screenshot — just the
+  region in question — not the whole page. Full-page only when the cross-page *spatial
+  relationship* is itself the thing being decided ("should this section sit above that
+  one"). Everything the decider doesn't weigh is noise, same as a crammed table.
+- **Escalate only when the lighter medium genuinely can't show it.** Still < GIF <
+  video in both production cost *and* the decider's attention. A GIF of something a
+  still would've shown is **worse** than the still — it makes them wait for the loop to
+  come back to the frame that mattered. That's over-production, one tier up. Motion is
+  for properties that *only exist* in motion.
+
+(The GIF/video capture itself is fixer's / walkabout's CDP recorder — `decisions`
+borrows it, same as a narrated recording. This section is only about *when* to reach
+for each.)
 
 ### Keep the aid glanceable — prose inside it is the failure
 
