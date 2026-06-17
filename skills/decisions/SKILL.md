@@ -5,6 +5,8 @@ description: Ask a human coworker for ONE decision, cleanly. Reduce a question t
 
 # decisions — one clean ask, one tap back
 
+> Part of the **shipwright** method — see the `shipwright` skill for the work-loop this move fits into and when to reach for it.
+
 The scarce resource in async work isn't your reasoning, it's the **coworker's
 attention**. A question that bundles ten asks, or names a ticket they don't
 remember, or forces them to compose a paragraph, burns that attention and stalls
