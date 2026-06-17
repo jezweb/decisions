@@ -1,0 +1,12 @@
+node_modules/
+*.log
+.DS_Store
+# rendered decision aids are per-ask, not part of the plugin
+**/out/
+*.png
+*.gif
+*.mp4
+*.mp3
+# never commit a key. designated keys live in the host's secret store.
+.env
+*.key

@@ -1,0 +1,12 @@
+{
+  "name": "decisions",
+  "description": "Ask a human coworker for ONE decision, cleanly. Frame it, carry the context, show a grounded visual, and make answering a single tap. Replaces the overloaded wall-of-questions with one well-formed ask.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jeremy Dawes",
+    "email": "jeremy@jezweb.net"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/jezweb/decisions",
+  "repository": "https://github.com/jezweb/decisions"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "decisions",
+  "owner": {
+    "name": "Jeremy Dawes",
+    "email": "jeremy@jezweb.net"
+  },
+  "plugins": [
+    {
+      "name": "decisions",
+      "source": "./",
+      "description": "Ask a human coworker for one decision, cleanly: framed, context carried, a grounded visual, and one-tap to answer. One ask at a time, never a wall of ten."
+    }
+  ]
+}
