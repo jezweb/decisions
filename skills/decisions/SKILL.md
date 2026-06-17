@@ -82,6 +82,7 @@ works:
 | A yes/no or pick-one, self-evident | **text + the five-part frame**. Stop here. Most asks. |
 | Spatial / "what would it look like" | one **screenshot** of the real surface, or a **wireframe** image |
 | A comparison across options × dimensions | a **decision matrix** (grounded HTML → screenshot, see below) |
+| Approving a **set** of changes (a batch / deploy go-no-go) | a **manifest** — one row per item, short risk tag, one go/no-go (`manifest.html`) |
 | A flow / sequence / branch | a **mermaid or graphviz** diagram generated from the *real* code |
 | Genuinely complex, multi-branch, needs walking through | a **narrated screen-recording** (borrow fixer/walkabout) — the rare exception |
 
