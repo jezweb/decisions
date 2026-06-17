@@ -29,7 +29,7 @@ gate; the ask you post is derived from it.
 > e.g. attach the access matrix; link nothing they'd have to open.
 
 **Aid** (pick the lightest that works — see SKILL §3):
-> [ ] text only   [ ] one screenshot   [ ] grounded matrix/flow   [ ] wireframe image   [ ] narrated recording
+> [ ] text only   [ ] cropped still / annotated screenshot   [ ] matrix   [ ] compare (A vs B)   [ ] manifest (approve a set)   [ ] tree (precedence)   [ ] GIF (a change only visible in motion)   [ ] wireframe image   [ ] narrated video
 
 ---
 
