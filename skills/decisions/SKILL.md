@@ -2,14 +2,14 @@
 name: decisions
 description: Ask a human coworker for ONE decision, cleanly. Reduce a question to its single load-bearing choice, carry the context to them so they don't have to go look anything up, show a grounded visual, and make answering a single tap. Use when you're blocked on a person's call, when a question is about to become a wall of ten asks, when a stakeholder needs to choose between options, or when "what did you mean?" keeps bouncing. Sibling of fixer (borrows its recorder) and walkabout (borrows its narration) for the rare ask that needs a narrated screen-recording.
 # Side-effecting (posts to a real human): deliberate /decisions only, never auto-fired. The shipwright
-# loop still reaches it (names it + posts the framed ask via the method) — this just stops Claude
+# loop still invokes it (names it + posts the framed ask via the method) — this just stops Claude
 # auto-deciding to ping a coworker.
 disable-model-invocation: true
 ---
 
 # decisions — one clean ask, one tap back
 
-> Part of the **shipwright** method — see the `shipwright` skill for the work-loop this move fits into and when to reach for it.
+> Part of the **shipwright** method — see the `shipwright` skill for the work-loop this move fits into and when to invoke it.
 
 The scarce resource in async work isn't your reasoning, it's the **coworker's
 attention**. A question that bundles ten asks, or names a ticket they don't
