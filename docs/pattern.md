@@ -145,8 +145,8 @@ visibility scope was undecided. The shape that worked:
    the settled rows filled from the actual code, the one undecided row highlighted
    amber with "A or B?". Rendered HTML → PNG. Every cell was a fact, so the picture
    couldn't mislead.
-3. **Framed it** — the decision (one role's patient-visibility scope), why it needed
-   the stakeholder (a clinical-workflow + privacy policy call, not a code question),
+3. **Framed it** — the decision (one role's data-visibility scope), why it needed
+   the stakeholder (an access-policy + privacy call, not a code question),
    the two named options, a recommendation with a one-line why, and the stakes (it
    unblocks the whole enforcement build).
 4. **Posted context + matrix, then two option messages** for 👍.
