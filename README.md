@@ -39,8 +39,11 @@ SCOPE → FRAME → AID → POST → WATCH → ACT
 |---|---|
 | `skills/decisions/SKILL.md` | the operating method (the skill the agent loads) |
 | `templates/decision.md` | the fill-in-the-blanks decision frame — filling it *is* the quality gate |
-| `templates/matrix.html` | worked grounded decision-matrix; adapt rows/cols/options |
-| `templates/render.mjs` | HTML → PNG (Playwright, deterministic, no key) |
+| `templates/matrix.html` | worked grounded decision-matrix, **lean by default** (glanceable, no prose); adapt rows/cols/options |
+| `templates/manifest.html` | batch-approve aid — one row per item + risk tag, one go/no-go ("ship this set?") |
+| `templates/compare.html` | A/B approach aid — two paths across the 2-3 trade-offs that decide it |
+| `templates/tree.html` | precedence/classification aid — first-match-wins ladder, contested rule flagged (pure HTML/CSS, no network) |
+| `templates/render.mjs` | HTML → PNG (needs Playwright: `npm i playwright`, or set `CHROME_PATH`; deterministic, no key) |
 | `docs/pattern.md` | the why, the lived detail, the failure modes |
 
 ## Borrows, doesn't reinvent

@@ -1,0 +1,68 @@
+<!doctype html>
+<!--
+  Precedence / classification tree — LEAN by default. Render with render.mjs.
+
+  Use when the decision is about BRANCH or ORDER, not comparison — "in what order
+  do the rules fire?", "does this case land in bucket X or a new bucket Y?". A
+  graph shows precedence where a table would hide it.
+
+  This is pure HTML/CSS on purpose: render.mjs is deterministic and NETWORK-FREE,
+  and client-side mermaid needs a CDN (network) or a bundled lib. For a genuinely
+  large graph, generate it with graphviz instead — `dot -Tpng tree.dot -o tree.png`
+  (separate tool, no browser) — and skip render.mjs. For the common small case,
+  this template is zero-dependency and works with render.mjs today.
+
+    - Each rule is one short line: "condition → outcome". No sentences.
+    - The rules read top-to-bottom = the precedence order (first match wins).
+    - Highlight the contested rule with class="decide"; the two option chips
+      resolve THAT branch only.
+
+  Generic example — replace the ladder with your real rules.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         background: #f5f6f8; color: #1e293b; padding: 40px; }
+  .card { width: 560px; background: #fff; border-radius: 16px; padding: 32px 36px;
+          box-shadow: 0 10px 40px rgba(15,23,42,.08); border: 1px solid #e8ebf0; }
+  h1 { font-size: 21px; font-weight: 700; color: #0f2742; margin-bottom: 4px; }
+  .sub { font-size: 13px; color: #64748b; margin-bottom: 22px; }
+  .rule { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 10px;
+          border: 1px solid #e8ebf0; margin-bottom: 8px; font-size: 14.5px; }
+  .rule .cond { font-weight: 600; color: #0f2742; }
+  .rule .arr { color: #94a3b8; }
+  .rule .out { font-weight: 700; }
+  .rule:not(:last-of-type)::after { } /* connector handled by margin */
+  .order { width: 22px; height: 22px; flex: none; border-radius: 999px; background: #eef2f7;
+           color: #64748b; font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+  .crit { color: #b91c1c; } .warn { color: #b45309; } .ok { color: #15803d; }
+  .decide { background: #fff7ed; border-color: #fdba74; }
+  .pill { display: inline-block; font-size: 10.5px; font-weight: 700; color: #c2410c;
+          background: #ffedd5; border-radius: 999px; padding: 2px 8px; margin-left: auto; }
+  .opts { display: flex; gap: 10px; margin-top: 20px; }
+  .opt { flex: 1; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 15px;
+         font-size: 14px; font-weight: 600; color: #334155; }
+  .opt.rec { border-color: #15803d; color: #0f2742; }
+  .opt .n { color: #94a3b8; font-weight: 700; margin-right: 6px; }
+  .opt.rec .n { color: #15803d; }
+  .opt.rec::after { content: " ✓"; color: #15803d; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Status precedence — right order?</h1>
+    <div class="sub">First match wins, top to bottom</div>
+    <div class="rule"><span class="order">1</span><span class="cond">Critical flag</span><span class="arr">→</span><span class="out crit">At Risk</span></div>
+    <div class="rule decide"><span class="order">2</span><span class="cond">Value below min</span><span class="arr">→</span><span class="out crit">At Risk?</span><span class="pill">decide</span></div>
+    <div class="rule"><span class="order">3</span><span class="cond">Warning flag</span><span class="arr">→</span><span class="out warn">Watch</span></div>
+    <div class="rule"><span class="order">4</span><span class="cond">Otherwise</span><span class="arr">→</span><span class="out ok">OK</span></div>
+    <div class="opts">
+      <div class="opt rec"><span class="n">1</span>Value-below-min = At Risk</div>
+      <div class="opt"><span class="n">2</span>New "Review" tier</div>
+    </div>
+  </div>
+</body>
+</html>

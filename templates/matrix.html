@@ -1,10 +1,24 @@
 <!doctype html>
 <!--
-  Grounded decision matrix — worked example. Render with templates/render.mjs.
-  This is the DEFAULT visual for a "compare options across dimensions" decision:
-  every value is written by you from real facts, so it is accurate by construction
-  (no model invents a cell). Adapt the rows / columns / options to your decision;
-  highlight the row(s) the person actually has to decide with class="decide".
+  Grounded decision matrix — LEAN by default. Render with render.mjs.
+
+  The structure IS the argument. Every value is written by you from real facts, so
+  it's accurate by construction (no model invents a cell). The point is a 2-second
+  GLANCE, not a read:
+    - Title <= ~6 words. No sub-line, no footer, no reassurance text.
+    - Cells are symbols / short labels (✓ ✕ –), never sentences.
+    - Option chips <= ~6 words; mark the recommended one with class="rec".
+    - Highlight the row the person actually decides with class="decide".
+  If you're tempted to add a sentence inside the card, the columns are wrong — fix
+  the structure instead. Two cells that contradict (✓ / ✕ on the decide row) say
+  "broken" with no prose at all.
+
+  This example: a real, generic call — "where should deploy alerts go?" Replace the
+  rows/columns/options with yours.
+
+  NEED OPTIONS x DIMENSIONS? Add more columns (Cost / Effort / Risk …) with short
+  cell values — but keep them labels, not sentences, and drop any column the
+  decider doesn't actually weigh.
 -->
 <html lang="en">
 <head>
@@ -13,55 +27,47 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
          background: #f5f6f8; color: #1e293b; padding: 40px; }
-  .card { width: 880px; background: #fff; border-radius: 16px; padding: 36px 40px;
+  .card { width: 720px; background: #fff; border-radius: 16px; padding: 32px 36px;
           box-shadow: 0 10px 40px rgba(15,23,42,.08); border: 1px solid #e8ebf0; }
-  h1 { font-size: 22px; font-weight: 700; color: #0f2742; margin-bottom: 4px; }
-  .sub { font-size: 14px; color: #64748b; margin-bottom: 26px; }
-  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14.5px; }
-  th, td { padding: 13px 16px; text-align: left; border-bottom: 1px solid #eef1f5; }
+  h1 { font-size: 21px; font-weight: 700; color: #0f2742; margin-bottom: 22px; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15px; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #eef1f5; }
+  th:not(:first-child), td:not(:first-child) { text-align: center; }
   thead th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
-             color: #64748b; font-weight: 600; background: #fafbfc; }
+             color: #64748b; font-weight: 600; }
   tbody td:first-child { font-weight: 600; color: #0f2742; }
-  .yes { color: #15803d; font-weight: 600; }
-  .no  { color: #b91c1c; }
+  .yes { color: #15803d; font-weight: 700; }
+  .no  { color: #b91c1c; font-weight: 700; }
+  .mut { color: #cbd5e1; }
   .decide { background: #fff7ed; }
   .decide td { border-bottom: 1px solid #fde6cf; }
-  .pill { display: inline-block; font-size: 11px; font-weight: 700; color: #c2410c;
-          background: #ffedd5; border-radius: 999px; padding: 2px 9px; margin-left: 8px; }
-  .q { margin-top: 26px; padding: 18px 20px; background: #0f2742; color: #fff; border-radius: 12px; }
-  .q .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #93b4d6; margin-bottom: 6px; }
-  .q .ask { font-size: 16px; font-weight: 600; line-height: 1.45; }
-  .opts { display: flex; gap: 12px; margin-top: 14px; }
-  .opt { flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); border-radius: 10px; padding: 12px 14px; }
-  .opt .t { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
-  .opt .d { font-size: 12.5px; color: #c7d6e6; line-height: 1.4; }
-  .opt.rec { border-color: #34d399; background: rgba(52,211,153,.12); }
-  .opt.rec .t::after { content: " ✓ recommended"; color: #34d399; font-size: 11px; font-weight: 700; }
-  .foot { margin-top: 16px; font-size: 12.5px; color: #94a3b8; }
+  .pill { display: inline-block; font-size: 10.5px; font-weight: 700; color: #c2410c;
+          background: #ffedd5; border-radius: 999px; padding: 2px 8px; margin-left: 8px; }
+  .opts { display: flex; gap: 10px; margin-top: 22px; }
+  .opt { flex: 1; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 13px 16px;
+         font-size: 14.5px; font-weight: 600; color: #334155; }
+  .opt.rec { border-color: #15803d; color: #0f2742; }
+  .opt .n { color: #94a3b8; font-weight: 700; margin-right: 6px; }
+  .opt.rec .n { color: #15803d; }
+  .opt.rec::after { content: " ✓"; color: #15803d; }
 </style>
 </head>
 <body>
   <div class="card">
-    <h1>SHORT TITLE OF THE DECISION</h1>
-    <div class="sub">context line · one decision needed</div>
+    <h1>Where should deploy alerts go?</h1>
     <table>
       <thead>
-        <tr><th>Row label</th><th>Dimension 1</th><th>Dimension 2</th><th>Dimension 3</th></tr>
+        <tr><th>Channel</th><th>Team sees it</th><th>Pages on-call</th><th>Noise</th></tr>
       </thead>
       <tbody>
-        <tr><td>Settled row</td><td class="yes">Yes</td><td class="yes">Yes</td><td>value</td></tr>
-        <tr><td>Settled row</td><td class="no">No</td><td class="no">No</td><td>value</td></tr>
-        <tr class="decide"><td>Row to decide <span class="pill">decide</span></td><td class="no">No</td><td class="no">No</td><td>A <em>or</em> B?</td></tr>
+        <tr><td>Email</td><td class="no">✕</td><td class="no">✕</td><td class="mut">low</td></tr>
+        <tr class="decide"><td>Chat <span class="pill">today</span></td><td class="yes">✓</td><td class="no">✕</td><td class="mut">low</td></tr>
+        <tr><td>PagerDuty</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">high</td></tr>
       </tbody>
     </table>
-    <div class="q">
-      <div class="lbl">The one decision</div>
-      <div class="ask">State the single question, plainly.</div>
-      <div class="opts">
-        <div class="opt rec"><div class="t">Option A</div><div class="d">One line on what it means + when it's right.</div></div>
-        <div class="opt"><div class="t">Option B</div><div class="d">One line on the trade-off.</div></div>
-      </div>
-      <div class="foot">Everything else above I'll build as shown. This is all I need — 👍 or reply the option.</div>
+    <div class="opts">
+      <div class="opt rec"><span class="n">1</span>Keep Chat only</div>
+      <div class="opt"><span class="n">2</span>Add PagerDuty for failures</div>
     </div>
   </div>
 </body>
