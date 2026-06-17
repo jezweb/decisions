@@ -43,6 +43,7 @@ SCOPE → FRAME → AID → POST → WATCH → ACT
 | `templates/manifest.html` | batch-approve aid — one row per item + risk tag, one go/no-go ("ship this set?") |
 | `templates/compare.html` | A/B approach aid — two paths across the 2-3 trade-offs that decide it |
 | `templates/tree.html` | precedence/classification aid — first-match-wins ladder, contested rule flagged (pure HTML/CSS, no network) |
+| `templates/annotated.html` | annotated-screenshot aid — the real screen with numbered pins on the spot(s) in question + a legend; carries the actual pixels into the ask |
 | `templates/render.mjs` | HTML → PNG (needs Playwright: `npm i playwright`, or set `CHROME_PATH`; deterministic, no key) |
 | `docs/pattern.md` | the why, the lived detail, the failure modes |
 

@@ -1,0 +1,113 @@
+<!doctype html>
+<!--
+  Annotated screenshot — pin the REAL surface, then ask. Render with render.mjs.
+
+  Use when the decision is about a SPECIFIC SPOT on a real screen — "what should
+  THIS control do?", "is THIS the right place for it?", "this label here — keep or
+  cut?". The other templates are abstract renders; this one carries the actual
+  pixels into the ask so the decider never has to go find the screen. It's the
+  "carry the context in" rule made literal, and it's the most common shape of a
+  "where exactly do you mean?" question.
+
+  Grounded by construction: the screenshot is real, the pins are just positioned
+  markers — nothing is invented. (For a "what would a NEW thing look like" question
+  where there's no real screen yet, that's a wireframe/image-model job, not this.)
+
+  HOW TO USE
+    1. Capture the real screen (fixer's recorder / the screenshot pipeline / a plain
+       Playwright shot) and drop the file next to this html, e.g. shot.png.
+    2. Replace the .shot-demo block below with:  <img class="shotimg" src="./shot.png">
+    3. Place a <span class="pin" style="--x:..%; --y:..%">N</span> per spot you're
+       asking about (x = % from left, y = % from top of the screenshot).
+    4. Add one legend row per pin saying what it points at.
+    5. Fill the question block. Render:  node render.mjs annotated.html
+    Keep it to 1-3 pins. More than that and it's several decisions, not one.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         background: #f5f6f8; color: #1e293b; padding: 40px; }
+  .card { width: 820px; background: #fff; border-radius: 16px; padding: 30px 32px;
+          box-shadow: 0 10px 40px rgba(15,23,42,.08); border: 1px solid #e8ebf0; }
+  h1 { font-size: 21px; font-weight: 700; color: #0f2742; margin-bottom: 4px; }
+  .sub { font-size: 14px; color: #64748b; margin-bottom: 22px; }
+
+  /* The screenshot stage — pins are positioned relative to this. */
+  .shot { position: relative; border-radius: 10px; overflow: hidden;
+          border: 1px solid #e2e8f0; line-height: 0; }
+  .shotimg { width: 100%; height: auto; display: block; }
+
+  /* A numbered pin. Position with inline --x / --y (% of the shot). */
+  .pin { position: absolute; transform: translate(-50%, -50%);
+         left: var(--x); top: var(--y);
+         width: 30px; height: 30px; border-radius: 999px;
+         background: #ef4444; color: #fff; font-weight: 700; font-size: 15px;
+         display: flex; align-items: center; justify-content: center; line-height: 1;
+         box-shadow: 0 0 0 4px rgba(239,68,68,.28), 0 2px 6px rgba(0,0,0,.3);
+         font-family: inherit; }
+
+  /* Legend: pin number -> what it points at. */
+  .legend { margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
+  .leg { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+  .leg .n { flex: none; width: 22px; height: 22px; border-radius: 999px;
+            background: #ef4444; color: #fff; font-weight: 700; font-size: 12px;
+            display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .leg .t { color: #1e293b; line-height: 1.45; }
+  .leg .t b { color: #0f2742; }
+
+  .q { margin-top: 22px; padding: 18px 20px; background: #0f2742; color: #fff; border-radius: 12px; }
+  .q .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #93b4d6; margin-bottom: 6px; }
+  .q .ask { font-size: 16px; font-weight: 600; line-height: 1.45; }
+  .q .foot { margin-top: 12px; font-size: 12.5px; color: #94a3b8; }
+
+  /* --- demo placeholder only: delete this block when you add a real <img>. --- */
+  .shot-demo { background:
+      linear-gradient(#fff,#fff) padding-box,
+      repeating-linear-gradient(135deg,#eef2f7 0 14px,#e6ebf2 14px 28px);
+    height: 300px; position: relative; }
+  .shot-demo .bar { position:absolute; left:0; right:0; top:0; height:46px; background:#0f2742; }
+  .shot-demo .bar::after { content:"Your Real Screen"; color:#cbd5e1; font-size:13px;
+    position:absolute; left:18px; top:15px; letter-spacing:.04em; }
+  .shot-demo .field { position:absolute; background:#fff; border:1px solid #d7dee7;
+    border-radius:8px; height:38px; }
+  .shot-demo .f1 { left:5%; top:120px; width:42%; }
+  .shot-demo .f2 { left:53%; top:120px; width:42%; }
+  .shot-demo .hint { position:absolute; left:5%; top:185px; font-size:12px; color:#94a3b8; line-height:0; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>SHORT TITLE — the decision, as a question</h1>
+    <div class="sub">one line of context · the spot is pinned below</div>
+
+    <div class="shot">
+      <!-- REAL USE: replace this whole .shot-demo block with your screenshot:
+           <img class="shotimg" src="./shot.png">  -->
+      <div class="shot-demo">
+        <div class="bar"></div>
+        <div class="field f1"></div>
+        <div class="field f2"></div>
+        <div class="hint">▢ demo placeholder — swap in &lt;img class="shotimg" src="./shot.png"&gt;</div>
+      </div>
+
+      <!-- one pin per spot you're asking about; position with --x / --y (% of shot) -->
+      <span class="pin" style="--x:26%; --y:39%">1</span>
+      <span class="pin" style="--x:74%; --y:39%">2</span>
+    </div>
+
+    <div class="legend">
+      <div class="leg"><span class="n">1</span><span class="t"><b>This field</b> — what it points at, and the nub of the question.</span></div>
+      <div class="leg"><span class="n">2</span><span class="t"><b>This one</b> — the second spot, if the decision touches two places.</span></div>
+    </div>
+
+    <div class="q">
+      <div class="lbl">The one decision</div>
+      <div class="ask">State the single question about the pinned spot(s), plainly.</div>
+      <div class="foot">Two options below — 👍 the one you want, or reply its number.</div>
+    </div>
+  </div>
+</body>
+</html>

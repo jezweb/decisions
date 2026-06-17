@@ -81,6 +81,7 @@ works:
 |---|---|
 | A yes/no or pick-one, self-evident | **text + the five-part frame**. Stop here. Most asks. |
 | Spatial / "what would it look like" | one **screenshot** of the real surface, or a **wireframe** image |
+| About a **specific spot** on a real screen ("what should THIS do?", "is THIS the right place?") | an **annotated screenshot** — the real screen with numbered pins on the spot(s) + a legend (`annotated.html`). Carries the actual pixels into the ask; grounded by construction. Keep to 1-3 pins or it's several decisions. |
 | A comparison across options × dimensions | a **decision matrix** (grounded HTML → screenshot, see below) |
 | Two genuine approaches, decided by 2-3 trade-offs | a **compare** card — A vs B, trade-offs as the rows (`compare.html`) |
 | Approving a **set** of changes (a batch / deploy go-no-go) | a **manifest** — one row per item, short risk tag, one go/no-go (`manifest.html`) |
